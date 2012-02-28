@@ -72,15 +72,15 @@
 			$sections = '<div id="qa-shortcode-plugin-sections">';
 
 			$idx = 0;
-			while(qa_opt('shortcode_plugin_'.$idx.'_url')) {
+			while(qa_opt('shortcode_plugin_'.$idx.'_search')) {
 				$sections .='
 <table id="qa-shortcode-plugin-section-table-'.$idx.'" width="100%">
 	<tr>
 		<td>
 			<b>Shortcode #'.($idx+1).' search:</b><br/>
-			<input class="qa-form-tall-text" type="text" value="'.qa_opt('shortcode_plugin_'.$idx.'_search').'" id="shortcode_plugin_'.$idx.'_search" name="shortcode_plugin_'.$idx.'_search"><br/><br/>
-			<b>Shortcode #'.($idx+1).' replace (relative to url):</b><br/>
-			<input class="qa-form-tall-text" type="text" value="'.qa_opt('shortcode_plugin_'.$idx.'_replace').'" id="shortcode_plugin_'.$idx.'_replace" name="shortcode_plugin_'.$idx.'_replace"><br/><br/>
+			<input class="qa-form-tall-text" type="text" value="'.qa_html(qa_opt('shortcode_plugin_'.$idx.'_search')).'" id="shortcode_plugin_'.$idx.'_search" name="shortcode_plugin_'.$idx.'_search"><br/><br/>
+			<b>Shortcode #'.($idx+1).' replace:</b><br/>
+			<input class="qa-form-tall-text" type="text" value="'.qa_html(qa_opt('shortcode_plugin_'.$idx.'_replace')).'" id="shortcode_plugin_'.$idx.'_replace" name="shortcode_plugin_'.$idx.'_replace"><br/><br/>
 		</td>
 	</tr>
 </table>
