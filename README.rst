@@ -36,6 +36,7 @@ Regular Expressions
 ----------------------
 
 .. _Regular Expressions:
+
 Regular expressions allow to replace patterns with specific text that may be based on the search pattern.  For example, putting:
 
   /\[mycode\]([^\]]+)\[\/mycode\]/
