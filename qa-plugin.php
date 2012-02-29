@@ -5,7 +5,7 @@
         Plugin URI: https://github.com/NoahY/q2a-shortcode
         Plugin Update Check URI: https://github.com/NoahY/q2a-shortcode/raw/master/qa-plugin.php
         Plugin Description: Replace shortcode
-        Plugin Version: 0.1
+        Plugin Version: 0.2
         Plugin Date: 2012-02-28
         Plugin Author: NoahY
         Plugin Author URI:                              

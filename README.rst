@@ -9,7 +9,9 @@ This is a plugin for **Question2Answer** that allows shortcode replacement in po
 --------
 Features
 --------
-- replace any text with customizable replacements
+- replace any text with any other text
+- option to replace within HTML tags or exclude them from replace
+- regular expression matching (see `Regular Expressions`_ below)
 
 ------------
 Installation
@@ -28,6 +30,23 @@ Installation
 .. _git: http://git-scm.com/
 .. _github:
 .. _project page: https://github.com/NoahY/q2a-shortcode
+
+----------------------
+Regular Expressions
+----------------------
+
+.. _Regular Expressions:
+Regular expressions allow to replace patterns with specific text that may be based on the search pattern.  For example, putting:
+
+  /\[mycode\]([^\]]+)\[\/mycode\]/
+  
+in the search box and:
+
+  Hello, $1! 
+  
+in the replace box, would replace `[mycode]User[/mycode]` with `Hello, User!`.
+
+For more info on regular expressions, google it.
 
 ----------
 Disclaimer

@@ -13,7 +13,9 @@
 				while($idx <= (int)qa_opt('shortcode_plugin_number')) {
 					$this->shortcodes[] = array(
 						's' => qa_opt('shortcode_plugin_'.$idx.'_search'), 
-						'r' => qa_opt('shortcode_plugin_'.$idx.'_replace')
+						'r' => qa_opt('shortcode_plugin_'.$idx.'_replace'),
+						'x' => qa_opt('shortcode_plugin_'.$idx.'_rx'),
+						't' => qa_opt('shortcode_plugin_'.$idx.'_tags')
 					);
 					$idx++;
 				}
@@ -47,25 +49,33 @@
 
 		function shortcode_replace($text) {
 			
-			// remove tags
-			
-			preg_match_all('/<[^>]+>/', $text, $tags);
-			$idx = 0;
-			while(preg_match('/<[^>]*[^>0-9][^>]*>/',$text) > 0)
-				$text = preg_replace('/<[^>]*[^>0-9][^>]*>/', '<'.($idx++).'>', $text,1);
-
-			// replace shortcode
-
 			foreach($this->shortcodes as $sc) {
+				if(!$sc['t']) {
+
+					// remove tags
+					
+					preg_match_all('/<[^>]+>/', $text, $tags);
+					$idx = 0;
+					while(preg_match('/<[^>]*[^>0-9][^>]*>/',$text) > 0)
+						$text = preg_replace('/<[^>]*[^>0-9][^>]*>/', '<'.($idx++).'>', $text,1);
+						
+				}
+
+				// replace shortcode
+
+				if($sc['x'])
+					$text = preg_replace($sc['s'],$sc['r'],$text);
+				else
+					$text = str_replace($sc['s'],$sc['r'],$text);
+					
 				
-				$text = str_replace($sc['s'],$sc['r'],$text);
-				
-			}
-			
-			// restore tags
-			
-			foreach($tags[0] as $idx => $tag) {
-				$text = str_replace('<'.$idx.'>',$tag,$text);
+				if(!$sc['t']) {
+					// restore tags
+					
+					foreach($tags[0] as $idx => $tag) {
+						$text = str_replace('<'.$idx.'>',$tag,$text);
+					}
+				}
 			}
 				
 			return $text;

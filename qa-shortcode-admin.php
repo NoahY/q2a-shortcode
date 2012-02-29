@@ -32,6 +32,8 @@
 				while($idx <= (int)qa_post_text('shortcode_plugin_number')) {
 					qa_opt('shortcode_plugin_'.$idx.'_search',qa_post_text('shortcode_plugin_'.$idx.'_search'));
 					qa_opt('shortcode_plugin_'.$idx.'_replace',qa_post_text('shortcode_plugin_'.$idx.'_replace'));
+					qa_opt('shortcode_plugin_'.$idx.'_rx',(bool)qa_post_text('shortcode_plugin_'.$idx.'_rx'));
+					qa_opt('shortcode_plugin_'.$idx.'_tags',(bool)qa_post_text('shortcode_plugin_'.$idx.'_tags'));
 					$idx++;
 				}
 				
@@ -47,6 +49,8 @@
 				while($idx <= (int)qa_post_text('shortcode_plugin_number')) {
 					qa_opt('shortcode_plugin_'.$idx.'_search','');
 					qa_opt('shortcode_plugin_'.$idx.'_replace','');
+					qa_opt('shortcode_plugin_'.$idx.'_rx',false);
+					qa_opt('shortcode_plugin_'.$idx.'_tags',false);
 					$idx++;
 				}
 
@@ -80,7 +84,8 @@
 			<b>Shortcode #'.($idx+1).' search:</b><br/>
 			<input class="qa-form-tall-text" type="text" value="'.qa_html(qa_opt('shortcode_plugin_'.$idx.'_search')).'" id="shortcode_plugin_'.$idx.'_search" name="shortcode_plugin_'.$idx.'_search"><br/><br/>
 			<b>Shortcode #'.($idx+1).' replace:</b><br/>
-			<input class="qa-form-tall-text" type="text" value="'.qa_html(qa_opt('shortcode_plugin_'.$idx.'_replace')).'" id="shortcode_plugin_'.$idx.'_replace" name="shortcode_plugin_'.$idx.'_replace"><br/><br/>
+			<textarea id="shortcode_plugin_'.$idx.'_replace" name="shortcode_plugin_'.$idx.'_replace">'.qa_html(qa_opt('shortcode_plugin_'.$idx.'_replace')).'</textarea><br/>
+			<b>RegEx?</b><input title="regular expression, should be valid PHP regex including boundaries, eg: /\\[mycode\\]([^\\]]+)\\[\\/mycode\\]/ - replace string can receive $n variables" type="checkbox"'.(qa_opt('shortcode_plugin_'.$idx.'_rx')?' checked':'').' id="shortcode_plugin_'.$idx.'_rx" name="shortcode_plugin_'.$idx.'_rx"> <b>Tags?</b><input title="replace text within HTML tags as well" type="checkbox"'.(qa_opt('shortcode_plugin_'.$idx.'_tags')?' checked':'').' id="shortcode_plugin_'.$idx.'_tags" name="shortcode_plugin_'.$idx.'_tags"><br/><br/>
 		</td>
 	</tr>
 </table>
@@ -102,7 +107,7 @@
 <script>
 	var next_shortcode_entry = '.$idx.'; 
 	function addShortcode(){
-		jQuery("#qa-shortcode-plugin-sections").append(\'<table id="qa-shortcode-plugin-section-table-\'+next_shortcode_entry+\'" width="100%"><tr><td><b>Shortcode #\'+(next_shortcode_entry+1)+\' search:</b><br/><input class="qa-form-tall-text" type="text" value="" id="shortcode_plugin_\'+next_shortcode_entry+\'_search" name="shortcode_plugin_\'+next_shortcode_entry+\'_search"><br/><br/><b>Shortcode #\'+(next_shortcode_entry+1)+\' replace:</b><br/><input class="qa-form-tall-text" type="text" value="" id="shortcode_plugin_\'+next_shortcode_entry+\'_replace" name="shortcode_plugin_\'+next_shortcode_entry+\'_replace"><br/><br/></td></tr></table><hr/>\');
+		jQuery("#qa-shortcode-plugin-sections").append(\'<table id="qa-shortcode-plugin-section-table-\'+next_shortcode_entry+\'" width="100%"><tr><td><b>Shortcode #\'+(next_shortcode_entry+1)+\' search:</b><br/><input class="qa-form-tall-text" type="text" value="" id="shortcode_plugin_\'+next_shortcode_entry+\'_search" name="shortcode_plugin_\'+next_shortcode_entry+\'_search"><br/><br/><b>Shortcode #'.($idx+1).' replace:</b><br/><textarea value="" id="shortcode_plugin_\'+next_shortcode_entry+\'_replace" name="shortcode_plugin_\'+next_shortcode_entry+\'_replace"></textarea><br/><b>RegEx?</b><input title="regular expression, should be valid PHP regex including boundaries, eg: /\\[mycode\\]([^\\]]+)\\[\\/mycode\\]/ - replace string can receive $n variables" type="checkbox" id="shortcode_plugin_\'+next_shortcode_entry+\'_rx" name="shortcode_plugin_\'+next_shortcode_entry+\'_rx"> <b>Tags?</b><input title="replace text within HTML tags as well" type="checkbox" id="shortcode_plugin_\'+next_shortcode_entry+\'_tags" name="shortcode_plugin_\'+next_shortcode_entry+\'_tags"><br/><br/></td></tr></table><hr/>\');
 		
 		next_shortcode_entry++;
 		jQuery("input[name=shortcode_plugin_number]").val(next_shortcode_entry);
