@@ -3,7 +3,7 @@
 /*              
         Plugin Name: Shortcode
         Plugin URI: https://github.com/NoahY/q2a-shortcode
-        Plugin Update Check URI: https://github.com/NoahY/q2a-shortcode/raw/master/qa-plugin.php
+        Plugin Update Check URI: https://raw.github.com/NoahY/q2a-shortcode/master/qa-plugin.php
         Plugin Description: Replace shortcode
         Plugin Version: 0.2
         Plugin Date: 2012-02-28
